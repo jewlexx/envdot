@@ -3,9 +3,10 @@ use quote::quote;
 
 fn dotenv_inner(item: TokenStream) -> TokenStream {
     let item_str = item.to_string();
-    let current_dir = std::env::current_dir().unwrap();
 
-    let item_path = quote! {};
+    let item_path = quote! {
+        stringify!(../#item_str)
+    };
 
     TokenStream::new()
 }
