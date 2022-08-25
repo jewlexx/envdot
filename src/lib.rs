@@ -73,12 +73,15 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
         }
     }
 
+    let var_vec_len = var_vec.len();
+    let var_vec_fmt = format!("{:?}", var_vec);
+
     // let path_lit = litrs::StringLit::parse(path).unwrap();
     // let path_lit_val = path_lit.value();
 
     quote! {
         {
-            // const ENV_FILE: &str = include_str!(#path_lit_val);
+            const ENV_FILE: [(String, String); var_vec_len] = #var_vec_fmt;
 
             // for line in ENV_FILE.lines() {
             //     let mut var = line.split('=');
