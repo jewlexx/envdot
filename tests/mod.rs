@@ -4,5 +4,5 @@ use envdot::dotenv;
 fn print_test() {
     dotenv!(".test.env");
 
-    println!("{}", ENV_FILE)
+    // println!("{}", ENV_FILE)
 }

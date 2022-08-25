@@ -1,7 +1,7 @@
 use std::fs::File;
 
 use proc_macro2::TokenStream;
-use quote::quote;
+use quote::{quote, quote_spanned};
 
 fn dotenv_inner(item: TokenStream) -> TokenStream {
     let item_str = {
@@ -13,6 +13,14 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
             string
         }
     };
+
+    let current_file = file!();
+
+    if current_file.contains("src") && current_file != "src/main.rs" {
+        return quote! {
+            compile_error!("Can only be used in the main file")
+        };
+    }
 
     let path = format!("\"../{}\"", item_str);
 
