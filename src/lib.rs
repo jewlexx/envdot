@@ -18,7 +18,9 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
     let path_lit_val = path_lit.value();
 
     quote! {
-        fn your_mother() -> &'static str { #path_lit_val }
+        {
+            const ENV_FILE: &str = include_str!(#path_lit_val);
+        }
     }
 }
 
