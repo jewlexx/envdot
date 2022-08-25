@@ -56,17 +56,19 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
                     panic!("Invalid .env file")
                 }
 
-                let decl_lit = match StringLit::parse(decl) {
+                let decl_lit = StringLit::parse(decl);
+                let decl_str = match decl_lit {
                     Ok(ref v) => v.value(),
                     Err(_) => decl,
                 };
 
-                let value_lit = match StringLit::parse(value) {
+                let value_lit = StringLit::parse(value);
+                let value_str = match value_lit {
                     Ok(ref v) => v.value(),
                     Err(_) => value,
                 };
 
-                var_vec.push((decl_lit, value_lit));
+                var_vec.push((decl_str, value_str));
             }
         }
     }
