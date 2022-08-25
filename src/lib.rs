@@ -88,6 +88,6 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
 }
 
 #[proc_macro]
-pub fn dotenv(item: proc_macro::TokenStream) -> proc_macro::TokenStream {
+pub fn init_dotenv(item: proc_macro::TokenStream) -> proc_macro::TokenStream {
     dotenv_inner(item.into()).into()
 }

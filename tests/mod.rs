@@ -1,10 +1,10 @@
 use std::env;
 
-use envdot::dotenv;
+use envdot::init_dotenv;
 
 #[test]
 fn print_test() {
-    dotenv!(".test.env");
+    init_dotenv!(".test.env");
 
     assert_eq!(env::var("PROJECT"), Ok("envdot".to_string()));
 }
