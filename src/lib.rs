@@ -82,7 +82,7 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
 
     quote! {
         {
-            #(#var_vec_tokens),*
+            [#(#var_vec_tokens),*]
             // const ENV_FILE: [(String, String); #var_vec_len] = [#(#var_vec),*];
 
             // for line in ENV_FILE.lines() {
