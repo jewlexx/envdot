@@ -42,7 +42,7 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
         }
     };
 
-    let mut var_vec: Vec<(&str, &str)> = vec![];
+    let mut var_vec = vec![];
 
     for line in file_string.lines() {
         let mut var = line.split('=');
@@ -59,7 +59,7 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
                 let decl_lit = StringLit::parse(decl);
                 let decl_str = match decl_lit {
                     Ok(ref v) => v.value(),
-                    Err(_) => decl,
+                    Err(_) => value,
                 };
 
                 let value_lit = StringLit::parse(value);
@@ -68,7 +68,7 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
                     Err(_) => value,
                 };
 
-                var_vec.push((decl_str, value_str));
+                var_vec.push((decl_str.to_owned(), value_str.to_owned()));
             }
         }
     }
