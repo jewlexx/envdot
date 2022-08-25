@@ -1,3 +1,5 @@
+use std::{fs::File, io::Read};
+
 use proc_macro2::TokenStream;
 use quote::{quote, quote_spanned};
 use syn::spanned::Spanned;
@@ -22,6 +24,9 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
             item_span => compile_error!("Env file does not exists")
         };
     }
+
+    let file_bytes = vec![];
+    let file = File::open(path).unwrap().read_to_end(&mut file_bytes);
 
     // let path_lit = litrs::StringLit::parse(path).unwrap();
     // let path_lit_val = path_lit.value();
