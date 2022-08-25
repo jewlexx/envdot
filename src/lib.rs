@@ -7,9 +7,10 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
     let path = format!("../{}", item_str);
 
     let path_lit = litrs::StringLit::parse(path).unwrap();
+    let path_lit_val = path_lit.value();
 
     quote! {
-        fn your_mother() -> &'static str { #path_lit }
+        fn your_mother() -> &'static str { #path_lit_val }
     }
 }
 
