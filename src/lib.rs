@@ -1,6 +1,5 @@
 use std::{fs::File, io::Read};
 
-use litrs::StringLit;
 use proc_macro2::TokenStream;
 use quote::{quote, quote_spanned};
 use syn::spanned::Spanned;
@@ -84,22 +83,9 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
         {
             const ENV_FILE: [(&str, &str); #var_vec_len] = [#(#var_vec_tokens),*];
 
-            // for line in ENV_FILE.lines() {
-            //     let mut var = line.split('=');
-
-            //     let decl_opt = var.next();
-            //     let value_opt = var.next();
-
-            //     if let Some(decl) = decl_opt {
-            //         if let Some(value) = value_opt {
-            //             if decl.contains(" ") || value.contains(" ") {
-            //                 panic!("Invalid .env file")
-            //             }
-
-            //             std::env::set_var(decl, value);
-            //         }
-            //     }
-            // }
+            for (decl, value) in ENV_FILE {
+                std::env::set_var(decl, value);
+            }
         }
     }
 }
