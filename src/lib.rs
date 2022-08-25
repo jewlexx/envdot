@@ -78,8 +78,8 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
     let var_vec_tokens = var_vec
         .iter()
         .map(|x| {
-            let x0 = x.0;
-            let x1 = x.1;
+            let x0 = &x.0;
+            let x1 = &x.1;
 
             quote! {(#x0, #x1)}
         })
