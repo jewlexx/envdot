@@ -5,10 +5,12 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
     let item_str = item.to_string();
 
     let item_path = quote! {
-        stringify!(../#item_str)
+        "../#item_str"
     };
 
-    TokenStream::new()
+    quote! {
+        fn your_mother() -> &'_ str { #item_path }
+    }
 }
 
 #[proc_macro]
