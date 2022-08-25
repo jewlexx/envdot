@@ -56,17 +56,9 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
                     panic!("Invalid .env file")
                 }
 
-                let decl_lit = StringLit::parse(decl);
-                let decl_str = match decl_lit {
-                    Ok(ref v) => v.value(),
-                    Err(_) => value,
-                };
+                let decl_str = decl.replace('"', "").replace('\'', "");
 
-                let value_lit = StringLit::parse(value);
-                let value_str = match value_lit {
-                    Ok(ref v) => v.value(),
-                    Err(_) => value,
-                };
+                let value_str = value.replace('"', "").replace('\'', "");
 
                 var_vec.push((decl_str.to_owned(), value_str.to_owned()));
             }
