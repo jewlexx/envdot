@@ -12,7 +12,7 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
         }
     };
 
-    let path = format!("\"../{}\"", item_str);
+    let path = std::env::current_dir().unwrap().join(item_str);
 
     let path_lit = litrs::StringLit::parse(path).unwrap();
     let path_lit_val = path_lit.value();
