@@ -6,7 +6,7 @@ use syn::spanned::Spanned;
 
 fn dotenv_inner(item: TokenStream) -> TokenStream {
     let item_str = {
-        let string = item.to_string().replace('\"', "");
+        let string = item.to_string().replace('"', "");
 
         if string.is_empty() {
             ".env".to_string()
