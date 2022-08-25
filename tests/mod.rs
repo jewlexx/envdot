@@ -1,6 +1,6 @@
 use envdot::dotenv;
 
-dotenv!();
+dotenv!(".env.local");
 
 #[test]
 fn print_test() {
