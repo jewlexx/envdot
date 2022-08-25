@@ -26,7 +26,10 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
     }
 
     let mut file_bytes = vec![];
-    let file = File::open(path).unwrap().read_to_end(&mut file_bytes);
+    File::open(path)
+        .unwrap()
+        .read_to_end(&mut file_bytes)
+        .unwrap();
 
     // let path_lit = litrs::StringLit::parse(path).unwrap();
     // let path_lit_val = path_lit.value();
