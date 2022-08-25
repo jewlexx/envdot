@@ -44,7 +44,32 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
 
     let mut var_vec: Vec<(StringLit<String>, StringLit<String>)> = vec![];
 
-    for line in file_string.lines() {}
+    for line in file_string.lines() {
+        let mut var = line.split('=');
+
+        let decl_opt = var.next();
+        let value_opt = var.next();
+
+        if let Some(decl) = decl_opt {
+            if let Some(value) = value_opt {
+                if decl.contains(' ') || value.contains(' ') {
+                    panic!("Invalid .env file")
+                }
+
+                let decl_lit = match StringLit::parse(decl) {
+                    Ok(ref v) => v.value(),
+                    Err(_) => decl,
+                };
+
+                let value_lit = match StringLit::parse(value) {
+                    Ok(ref v) => v.value(),
+                    Err(_) => value,
+                };
+
+                std::env::set_var(decl, value);
+            }
+        }
+    }
 
     // let path_lit = litrs::StringLit::parse(path).unwrap();
     // let path_lit_val = path_lit.value();
