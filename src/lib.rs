@@ -9,7 +9,7 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
     };
 
     quote! {
-        fn your_mother() -> &'_ str { #item_path }
+        fn your_mother() -> &'static str { #item_path }
     }
 }
 
