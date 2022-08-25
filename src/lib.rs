@@ -1,5 +1,6 @@
 use std::{fs::File, io::Read};
 
+use litrs::StringLit;
 use proc_macro2::TokenStream;
 use quote::{quote, quote_spanned};
 use syn::spanned::Spanned;
@@ -40,6 +41,10 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
             }
         }
     };
+
+    let mut var_vec: Vec<(StringLit<String>, StringLit<String>)> = vec![];
+
+    for line in file_string.lines() {}
 
     // let path_lit = litrs::StringLit::parse(path).unwrap();
     // let path_lit_val = path_lit.value();
