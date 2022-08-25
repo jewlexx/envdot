@@ -14,13 +14,7 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
         }
     };
 
-    let current_file = file!();
-
-    if current_file.contains("src") && current_file != "src/main.rs" {
-        return quote! {
-            compile_error!("Can only be used in the main file")
-        };
-    }
+    let manifest_path = env!("CARGO_MANIFEST_DIR");
 
     let path = format!("\"../{}\"", item_str);
 
@@ -29,24 +23,25 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
 
     quote! {
         // {
-            const ENV_FILE: &str = include_str!(#path_lit_val);
+            // const ENV_FILE: &str = include_str!(#path_lit_val);
 
-            for line in ENV_FILE.lines() {
-                let mut var = line.split('=');
+            // for line in ENV_FILE.lines() {
+            //     let mut var = line.split('=');
 
-                let decl_opt = var.next();
-                let value_opt = var.next();
+            //     let decl_opt = var.next();
+            //     let value_opt = var.next();
 
-                if let Some(decl) = decl_opt {
-                    if let Some(value) = value_opt {
-                        if decl.contains(" ") || value.contains(" ") {
-                            panic!("Invalid .env file")
-                        }
+            //     if let Some(decl) = decl_opt {
+            //         if let Some(value) = value_opt {
+            //             if decl.contains(" ") || value.contains(" ") {
+            //                 panic!("Invalid .env file")
+            //             }
 
-                        std::env::set_var(decl, value);
-                    }
-                }
-            }
+            //             std::env::set_var(decl, value);
+            //         }
+            //     }
+            // }
+            println!("{}", #manifest_path);
         // }
     }
 }
