@@ -26,10 +26,20 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
     }
 
     let mut file_bytes = vec![];
+
     File::open(path)
         .unwrap()
         .read_to_end(&mut file_bytes)
         .unwrap();
+
+    let file_string = match String::from_utf8(file_bytes) {
+        Ok(f) => f,
+        Err(_) => {
+            return quote! {
+                compile_error!("Invalid env file. Is not valid utf8!");
+            }
+        }
+    };
 
     // let path_lit = litrs::StringLit::parse(path).unwrap();
     // let path_lit_val = path_lit.value();
