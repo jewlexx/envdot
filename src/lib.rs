@@ -60,7 +60,7 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
 
                 let value_str = value.replace('"', "").replace('\'', "");
 
-                var_vec.push((decl_str.to_owned(), value_str.to_owned()));
+                var_vec.push((decl_str, value_str));
             }
         }
     }
