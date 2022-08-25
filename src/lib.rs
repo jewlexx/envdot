@@ -76,9 +76,6 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
         })
         .collect::<Vec<_>>();
 
-    // let path_lit = litrs::StringLit::parse(path).unwrap();
-    // let path_lit_val = path_lit.value();
-
     quote! {
         {
             const ENV_FILE: [(&str, &str); #var_vec_len] = [#(#var_vec_tokens),*];
