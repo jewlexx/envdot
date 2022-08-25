@@ -2,7 +2,7 @@ use envdot::dotenv;
 
 #[test]
 fn print_test() {
-    dotenv!(".env.local");
+    dotenv!(".test.env");
 
     println!("{}", ENV_FILE)
 }
