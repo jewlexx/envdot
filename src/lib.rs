@@ -4,7 +4,7 @@ use quote::quote;
 fn dotenv_inner(item: TokenStream) -> TokenStream {
     let item_str = item.to_string();
 
-    let path = format!("../{}", item_str);
+    let path = format!("\"../{}\"", item_str);
 
     let path_lit = litrs::StringLit::parse(path).unwrap();
     let path_lit_val = path_lit.value();
