@@ -81,7 +81,7 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
 
     quote! {
         {
-            const ENV_FILE: [(String, String); var_vec_len] = #var_vec_fmt;
+            const ENV_FILE: [(String, String); #var_vec_len] = #var_vec_fmt;
 
             // for line in ENV_FILE.lines() {
             //     let mut var = line.split('=');
