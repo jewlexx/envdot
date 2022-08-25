@@ -1,7 +1,5 @@
-use std::fs::File;
-
 use proc_macro2::TokenStream;
-use quote::{quote, quote_spanned};
+use quote::quote;
 
 fn dotenv_inner(item: TokenStream) -> TokenStream {
     let item_str = {
@@ -14,35 +12,32 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
         }
     };
 
-    let manifest_path = env!("CARGO_MANIFEST_DIR");
-
     let path = format!("\"../{}\"", item_str);
 
     let path_lit = litrs::StringLit::parse(path).unwrap();
     let path_lit_val = path_lit.value();
 
     quote! {
-        // {
-            // const ENV_FILE: &str = include_str!(#path_lit_val);
+        {
+            const ENV_FILE: &str = include_str!(#path_lit_val);
 
-            // for line in ENV_FILE.lines() {
-            //     let mut var = line.split('=');
+            for line in ENV_FILE.lines() {
+                let mut var = line.split('=');
 
-            //     let decl_opt = var.next();
-            //     let value_opt = var.next();
+                let decl_opt = var.next();
+                let value_opt = var.next();
 
-            //     if let Some(decl) = decl_opt {
-            //         if let Some(value) = value_opt {
-            //             if decl.contains(" ") || value.contains(" ") {
-            //                 panic!("Invalid .env file")
-            //             }
+                if let Some(decl) = decl_opt {
+                    if let Some(value) = value_opt {
+                        if decl.contains(" ") || value.contains(" ") {
+                            panic!("Invalid .env file")
+                        }
 
-            //             std::env::set_var(decl, value);
-            //         }
-            //     }
-            // }
-            println!("{}", #manifest_path);
-        // }
+                        std::env::set_var(decl, value);
+                    }
+                }
+            }
+        }
     }
 }
 

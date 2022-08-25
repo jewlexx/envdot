@@ -1,3 +1,3 @@
 fn main() {
-    envdot::dotenv!();
+    envdot::dotenv!(".test.env");
 }
