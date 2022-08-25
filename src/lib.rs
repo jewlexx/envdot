@@ -33,7 +33,7 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
                             panic!("Invalid .env file")
                         }
 
-                        std::env::set_var(decl, value).unwrap();
+                        std::env::set_var(decl, value);
                     }
                 }
             }
