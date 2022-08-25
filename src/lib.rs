@@ -1,3 +1,5 @@
+use std::fs::File;
+
 use proc_macro2::TokenStream;
 use quote::quote;
 
