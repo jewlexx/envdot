@@ -2,7 +2,15 @@ use proc_macro2::TokenStream;
 use quote::quote;
 
 fn dotenv_inner(item: TokenStream) -> TokenStream {
-    let item_str = item.to_string();
+    let item_str = {
+        let string = item.to_string();
+
+        if string.is_empty() {
+            ".env".to_string()
+        } else {
+            string
+        }
+    };
 
     let path = format!("\"../{}\"", item_str);
 
