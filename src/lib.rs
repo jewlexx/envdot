@@ -42,7 +42,7 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
         }
     };
 
-    let mut var_vec: Vec<(StringLit<String>, StringLit<String>)> = vec![];
+    let mut var_vec: Vec<(&str, &str)> = vec![];
 
     for line in file_string.lines() {
         let mut var = line.split('=');
@@ -66,7 +66,7 @@ fn dotenv_inner(item: TokenStream) -> TokenStream {
                     Err(_) => value,
                 };
 
-                std::env::set_var(decl, value);
+                var_vec.push((decl_lit, value_lit));
             }
         }
     }
